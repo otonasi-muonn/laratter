@@ -12,7 +12,12 @@ class TweetController extends Controller
      */
     public function index()
     {
-        //
+    // 全てのツイートを取得してビューに渡す
+    // - user リレーションをロードして N+1 問題を回避
+    // - latest() で作成日時の降順に並べ替え
+    $tweets = Tweet::with('user')->latest()->get();
+    // tweets.index ビューへ tweets 変数として渡す
+    return view('tweets.index', compact('tweets'));
     }
 
     /**
@@ -20,7 +25,8 @@ class TweetController extends Controller
      */
     public function create()
     {
-        //
+    // ツイート作成フォームを表示する
+    return view('tweets.create');
     }
 
     /**
@@ -28,7 +34,20 @@ class TweetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // 入力バリデーション
+        // - tweet は必須、最大 255 文字
+        $request->validate([
+            'tweet' => 'required|max:255',
+        ]);
+
+        // 認証済みユーザーのリレーション経由でツイートを作成
+        // - $request->user() は現在ログイン中のユーザー
+        // - tweets() リレーションに対して create() を呼ぶことで
+        //   user_id 等の外部キーが自動的にセットされる
+        $request->user()->tweets()->create($request->only('tweet'));
+
+        // 作成後はツイート一覧へリダイレクト
+        return redirect()->route('tweets.index');
     }
 
     /**
@@ -36,7 +55,7 @@ class TweetController extends Controller
      */
     public function show(Tweet $tweet)
     {
-        //
+    // 指定されたツイートを表示する（未実装）
     }
 
     /**
@@ -44,7 +63,7 @@ class TweetController extends Controller
      */
     public function edit(Tweet $tweet)
     {
-        //
+    // 指定されたツイートの編集フォームを表示する（未実装）
     }
 
     /**
@@ -52,7 +71,7 @@ class TweetController extends Controller
      */
     public function update(Request $request, Tweet $tweet)
     {
-        //
+    // ツイート更新処理（未実装）
     }
 
     /**
@@ -60,6 +79,6 @@ class TweetController extends Controller
      */
     public function destroy(Tweet $tweet)
     {
-        //
+    // ツイート削除処理（未実装）
     }
 }
