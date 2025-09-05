@@ -12,12 +12,12 @@ class TweetController extends Controller
      */
     public function index()
     {
-    // 全てのツイートを取得してビューに渡す
-    // - user リレーションをロードして N+1 問題を回避
-    // - latest() で作成日時の降順に並べ替え
-    $tweets = Tweet::with('user')->latest()->get();
-    // tweets.index ビューへ tweets 変数として渡す
-    return view('tweets.index', compact('tweets'));
+        // 全てのツイートを取得してビューに渡す
+        // - user リレーションをロードして N+1 問題を回避
+        // - latest() で作成日時の降順に並べ替え
+        $tweets = Tweet::with('user')->latest()->get();
+        // tweets.index ビューへ tweets 変数として渡す
+        return view('tweets.index', compact('tweets'));
     }
 
     /**
@@ -25,8 +25,8 @@ class TweetController extends Controller
      */
     public function create()
     {
-    // ツイート作成フォームを表示する
-    return view('tweets.create');
+        // ツイート作成フォームを表示する
+        return view('tweets.create');
     }
 
     /**
@@ -55,7 +55,7 @@ class TweetController extends Controller
      */
     public function show(Tweet $tweet)
     {
-    // 指定されたツイートを表示する（未実装）
+        // 指定されたツイートを表示する（未実装）
     }
 
     /**
@@ -63,7 +63,7 @@ class TweetController extends Controller
      */
     public function edit(Tweet $tweet)
     {
-    // 指定されたツイートの編集フォームを表示する（未実装）
+        // 指定されたツイートの編集フォームを表示する（未実装）
     }
 
     /**
@@ -71,7 +71,7 @@ class TweetController extends Controller
      */
     public function update(Request $request, Tweet $tweet)
     {
-    // ツイート更新処理（未実装）
+        // ツイート更新処理（未実装）
     }
 
     /**
@@ -79,6 +79,6 @@ class TweetController extends Controller
      */
     public function destroy(Tweet $tweet)
     {
-    // ツイート削除処理（未実装）
+        // ツイート削除処理（未実装）
     }
 }
