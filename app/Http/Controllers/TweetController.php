@@ -55,7 +55,9 @@ class TweetController extends Controller
      */
     public function show(Tweet $tweet)
     {
-        // 指定されたツイートを表示する（未実装）
+        // 中のデータ見ることができる
+        // dd($tweet);
+        return view('tweets.show', compact('tweet'));
     }
 
     /**
