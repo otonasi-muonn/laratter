@@ -65,7 +65,7 @@ class TweetController extends Controller
      */
     public function edit(Tweet $tweet)
     {
-        // 指定されたツイートの編集フォームを表示する（未実装）
+        return view('tweets.edit', compact('tweet'));
     }
 
     /**
@@ -73,7 +73,13 @@ class TweetController extends Controller
      */
     public function update(Request $request, Tweet $tweet)
     {
-        // ツイート更新処理（未実装）
+        $request->validate([
+            'tweet' => 'required|max:255',
+        ]);
+
+        $tweet->update($request->only('tweet'));
+
+        return redirect()->route('tweets.show', $tweet);
     }
 
     /**
