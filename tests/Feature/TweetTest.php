@@ -191,3 +191,34 @@ it('shows no tweets if no match found', function () {
   $response->assertDontSee('This is a tweet');
   $response->assertSee('No tweets found.');
 });
+
+// ページネーションのテストを追加
+it('paginates tweets correctly', function () {
+    $user = User::factory()->create();
+    $this->actingAs($user);
+
+    // 15件のツイートを作成
+    Tweet::factory()->count(15)->create(['user_id' => $user->id]);
+
+    // 1ページ目を取得
+    $response1 = $this->get('/tweets');
+    $response1->assertStatus(200);
+
+    // 1ページ目のツイートが表示されていることを確認
+    $tweetsPage1 = Tweet::latest()->paginate(10);
+    foreach ($tweetsPage1 as $tweet) {
+        $response1->assertSee($tweet->tweet);
+    }
+
+    // 2ページ目を取得
+    $response2 = $this->get('/tweets?page=2');
+    $response2->assertStatus(200);
+
+    $tweetsPage2 = Tweet::latest()->paginate(10, ['*'], 'page', 2);
+    foreach ($tweetsPage2 as $tweet) {
+        $response2->assertSee($tweet->tweet);
+    }
+
+    // 合計件数の確認
+    $this->assertEquals(15, Tweet::count());
+});

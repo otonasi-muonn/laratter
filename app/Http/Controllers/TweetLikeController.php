@@ -13,7 +13,8 @@ class TweetLikeController extends Controller
      */
     public function index()
     {
-        $tweets = Tweet::with(['user', 'liked'])->latest()->get();
+        // 1ページあたり10件でページネーション
+        $tweets = Tweet::with(['user', 'liked'])->latest()->paginate(10);
         return view('tweets.index', compact('tweets'));
     }
 

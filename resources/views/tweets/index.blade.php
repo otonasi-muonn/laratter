@@ -30,6 +30,11 @@
             </div>
           </div>
           @endforeach
+
+          <div class="mt-6">
+            {{-- ページネーションリンク（Tailwind 用） --}}
+            {{ $tweets->links() }}
+          </div>
         </div>
       </div>
     </div>

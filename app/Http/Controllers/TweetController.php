@@ -15,7 +15,8 @@ class TweetController extends Controller
         // 全てのツイートを取得してビューに渡す
         // - user リレーションをロードして N+1 問題を回避
         // - latest() で作成日時の降順に並べ替え
-        $tweets = Tweet::with('user')->latest()->get();
+    // 1ページあたり10件でページネーション
+    $tweets = Tweet::with('user')->latest()->paginate(10);
         // tweets.index ビューへ tweets 変数として渡す
         return view('tweets.index', compact('tweets'));
     }
