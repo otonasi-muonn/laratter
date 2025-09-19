@@ -55,8 +55,7 @@ class TweetController extends Controller
      */
     public function show(Tweet $tweet)
     {
-        // 中のデータ見ることができる
-        // dd($tweet);
+        $tweet->load('comments');
         return view('tweets.show', compact('tweet'));
     }
 
