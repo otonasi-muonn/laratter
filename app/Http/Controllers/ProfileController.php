@@ -83,22 +83,4 @@ class ProfileController extends Controller
 
         return view('profile.show', compact('user', 'tweets'));
     }
-
-    /**
-     * Show the list of users that the given user is following.
-     */
-    public function following(User $user)
-    {
-        $users = $user->follows()->paginate(20);
-        return view('profile.following', compact('user', 'users'));
-    }
-
-    /**
-     * Show the list of followers for the given user.
-     */
-    public function followers(User $user)
-    {
-        $users = $user->followers()->paginate(20);
-        return view('profile.followers', compact('user', 'users'));
-    }
 }
