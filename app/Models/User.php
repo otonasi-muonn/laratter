@@ -61,4 +61,19 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class);
     }
+
+    // 🔽 多対多の関係
+
+
+
+    // フォローしている人を取得する関数
+    public function follows()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'follow_id', 'follower_id');
+    }
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'follow_id');
+    }
 }
