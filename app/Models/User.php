@@ -64,6 +64,12 @@ class User extends Authenticatable
 
     // 🔽 多対多の関係
 
+    // 🔽 ブックマーク（自分が保存したツイート）
+    public function bookmarks()
+    {
+        return $this->belongsToMany(Tweet::class, 'bookmarks')->withTimestamps();
+    }
+
 
 
     // フォローしている人を取得する関数

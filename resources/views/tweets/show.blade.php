@@ -39,6 +39,20 @@
               <button type="submit" class="text-blue-500 hover:text-blue-700">like {{$tweet->liked->count()}}</button>
             </form>
             @endif
+            <div class="ml-4">
+              @if ($tweet->bookmarked->contains(auth()->id()))
+              <form action="{{ route('tweets.unbookmark', $tweet) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="text-red-500 hover:text-red-700">Unbookmark</button>
+              </form>
+              @else
+              <form action="{{ route('tweets.bookmark', $tweet) }}" method="POST">
+                @csrf
+                <button type="submit" class="text-blue-500 hover:text-blue-700">Bookmark</button>
+              </form>
+              @endif
+            </div>
           </div>
           <div class="mt-4">
             <p class="text-gray-600 dark:text-gray-400 ml-4">comment {{ $tweet->comments->count() }}</p>

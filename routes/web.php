@@ -6,6 +6,7 @@ use App\Http\Controllers\TweetLikeController;
 use App\Http\Controllers\FollowController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\BookmarkController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -27,6 +28,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('tweets.comments', CommentController::class);
     Route::post('/users/{user}/follow', [FollowController::class, 'store'])->name('users.follow');
     Route::delete('/users/{user}/follow', [FollowController::class, 'destroy'])->name('users.unfollow');
+    Route::get('/bookmarks', [BookmarkController::class, 'index'])->name('bookmarks.index');
+    Route::post('/tweets/{tweet}/bookmark', [BookmarkController::class, 'store'])->name('tweets.bookmark');
+    Route::delete('/tweets/{tweet}/bookmark', [BookmarkController::class, 'destroy'])->name('tweets.unbookmark');
 });
 
 require __DIR__.'/auth.php';

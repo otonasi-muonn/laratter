@@ -26,4 +26,10 @@ class Tweet extends Model
   {
     return $this->hasMany(Comment::class)->orderBy('created_at', 'desc');
   }
+
+  // 🔽 ブックマーク（このツイートを保存しているユーザー）
+  public function bookmarked()
+  {
+    return $this->belongsToMany(User::class, 'bookmarks')->withTimestamps();
+  }
 }
